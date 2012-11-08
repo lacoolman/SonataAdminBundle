@@ -176,6 +176,11 @@ class ErrorElement
             $className = 'Symfony\\Component\\Validator\\Constraints\\' . $name;
         }
 
+        //TODO: bad
+        if(!class_exists($className)) {
+            $className = 'Sonata\\AdminBundle\\Validator\\' . $name;
+        }
+
         return new $className($options);
     }
 
