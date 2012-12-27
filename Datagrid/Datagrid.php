@@ -20,6 +20,7 @@ use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\CallbackTransformer;
+use IronSoft\Analytics\ISBundle\Entity\Passenger\ExecutionStatusReport;
 
 class Datagrid implements DatagridInterface
 {
@@ -62,12 +63,23 @@ class Datagrid implements DatagridInterface
         $this->formBuilder = $formBuilder;
     }
 
+    public function setResult(array $res)
+    {
+        $this->results = $res;
+    }
+
     /**
      * @return \Sonata\AdminBundle\Datagrid\PagerInterface
      */
     public function getPager()
     {
         return $this->pager;
+    }
+
+    public function getPagerResults()
+    {
+        $this->buildPager();
+        return $this->pager->getResults();
     }
 
     /**

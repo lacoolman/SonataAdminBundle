@@ -91,4 +91,7 @@ interface DatagridInterface
      * @return boolean
      */
     public function hasActiveFilters();
+
+    public function setResult(array $result);
+    public function getPagerResults();
 }
