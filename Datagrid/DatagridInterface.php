@@ -94,4 +94,5 @@ interface DatagridInterface
 
     public function setResult(array $result);
     public function getPagerResults();
+    public function setIsReport();
 }

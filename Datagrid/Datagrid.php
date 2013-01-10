@@ -68,6 +68,11 @@ class Datagrid implements DatagridInterface
         $this->results = $res;
     }
 
+    public $isReport = false;
+    public function setIsReport()
+    {
+        $this->isReport = true;
+    }
     /**
      * @return \Sonata\AdminBundle\Datagrid\PagerInterface
      */
@@ -89,7 +94,7 @@ class Datagrid implements DatagridInterface
     {
         $this->buildPager();
 
-        if (!$this->results) {
+        if (!$this->results && !$this->isReport) {
             $this->results = $this->pager->getResults();
         }
 
@@ -101,6 +106,7 @@ class Datagrid implements DatagridInterface
      */
     public function buildPager()
     {
+
         if ($this->bound) {
             return;
         }
@@ -132,10 +138,14 @@ class Datagrid implements DatagridInterface
 
         $data = $this->form->getData();
 
-        foreach ($this->getFilters() as $name => $filter) {
-            $this->values[$name] = isset($this->values[$name]) ? $this->values[$name] : null;
-            $filter->apply($this->query, $data[$filter->getFormName()]);
+        if(!$this->isReport)
+        {
+            foreach ($this->getFilters() as $name => $filter) {
+                $this->values[$name] = isset($this->values[$name]) ? $this->values[$name] : null;
+                $filter->apply($this->query, $data[$filter->getFormName()]);
+            }
         }
+
 
         if (isset($this->values['_sort_by'])) {
             if (!$this->values['_sort_by'] instanceof FieldDescriptionInterface) {
