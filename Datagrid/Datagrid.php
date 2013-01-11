@@ -71,6 +71,7 @@ class Datagrid implements DatagridInterface
     public $isReport = false;
     public function setIsReport()
     {
+        $this->pager->setMaxPerPage(0);
         $this->isReport = true;
     }
     /**
