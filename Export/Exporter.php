@@ -12,8 +12,8 @@
 namespace Sonata\AdminBundle\Export;
 
 use Exporter\Source\SourceIteratorInterface;
-use Exporter\Handler;
 use Symfony\Component\HttpFoundation\Response;
+use IronSoft\Analytics\ISBundle\Exporter\Handler;
 
 class Exporter
 {
