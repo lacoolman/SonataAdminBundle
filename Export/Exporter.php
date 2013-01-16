@@ -35,6 +35,10 @@ class Exporter
                 $writer      = new \Exporter\Writer\XlsWriter($privateFilename);
                 $contentType = 'application/vnd.ms-excel';
                 break;
+            case 'pdf':
+                $writer      = new \Exporter\Writer\PdfWriter($privateFilename);
+                $contentType = 'application/pdf';
+                break;
             case 'xml':
                 $writer      = new \Exporter\Writer\XmlWriter($privateFilename);
                 $contentType = 'text/xml';
