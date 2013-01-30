@@ -26,7 +26,7 @@ class Exporter
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getResponse($format, $filename, SourceIteratorInterface $source)
+    public function getResponse($format, $filename, SourceIteratorInterface $source, $options = [])
     {
         $privateFilename = sprintf('%s/%s', sys_get_temp_dir(), uniqid('sonata_export_', true));
 
@@ -55,7 +55,7 @@ class Exporter
                 throw new \RuntimeException('Invalid format');
         }
 
-        $handler = Handler::create($source, $writer);
+        $handler = Handler::create($source, $writer, $options);
         $handler->export();
 
         $response = new Response(file_get_contents($privateFilename), 200, array(
