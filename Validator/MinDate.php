@@ -6,4 +6,5 @@ class MinDate extends Constraint
 {
     public $message = "Дата не может быть меньше текущей";
     public $oldDate;
+    public $required = true;
 }
