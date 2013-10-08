@@ -15,21 +15,21 @@ class MinDateValidator extends ConstraintValidator
         }
 
 
-        if($constraint->required)
+        if(!empty($value))
         {
-            $currentDate = new \DateTime('now');
-            $diffCurrent = $value->diff($currentDate);
-
-            if($diffCurrent->days > 0 && $diffCurrent->invert == 0) {
-                $this->setMessage($constraint->message);
-                return false;
-            }
-
             if(isset($constraint->oldDate)) {
                 $diffEntered = $value->diff($constraint->oldDate);
                 if($diffEntered->days > 0 && $diffEntered->invert == 0) {
-                    $message = 'Дата не может быть меньше ранее установленной';
+                    $message = (isset($constraint->message)) ? $constraint->message : 'Дата не может быть меньше ранее установленной';
                     $this->setMessage($message, array('{{ value }}' => $value->format('d.m.Y')));
+                    return false;
+                }
+            } else {
+                $currentDate = new \DateTime('now');
+                $diffCurrent = $value->diff($currentDate);
+
+                if($diffCurrent->days > 0 && $diffCurrent->invert == 0) {
+                    $this->setMessage($constraint->message);
                     return false;
                 }
             }
